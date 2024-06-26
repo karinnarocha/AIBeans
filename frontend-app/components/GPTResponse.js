@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { View, ImageBackground, Text, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Modal, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-const API_URL = 'http://127.0.0.1:8080';
+const API_URL = '***';
 
 const GPTResponse = () => {
   const route = useRoute();
