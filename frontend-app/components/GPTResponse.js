@@ -3,7 +3,7 @@ import { View, ImageBackground, Text, StyleSheet, ActivityIndicator, TextInput, 
 import { useRoute, useNavigation } from '@react-navigation/native';
 import CameraButton from '../components/CameraButton';
 
-const API_URL = 'https://aibeans-470140f77a47.herokuapp.com/';
+const API_URL = '***';
 
 const GPTResponse = () => {
   const route = useRoute();
