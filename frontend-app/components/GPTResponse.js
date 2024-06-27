@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, ImageBackground, Text, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Modal, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import CameraButton from '../components/CameraButton';
-
-const API_URL = 'https://aibeans-470140f77a47.herokuapp.com/';
+import { GPT_URL } from '@env';
 
 const GPTResponse = () => {
   const route = useRoute();
@@ -12,15 +10,13 @@ const GPTResponse = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [adjustedRecipe, setAdjustedRecipe] = useState('');
   const [adjustedRecipeText, setAdjustedRecipeText] = useState('');
-  const [recipeTitle, setRecipeTitle] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const scrollViewRef = useRef();
 
   useEffect(() => {
     const inputText = route.params.inputText;
 
-    fetch(`${API_URL}/generaterecipe`, {
+    fetch(`${GPT_URL}/generaterecipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +45,7 @@ const GPTResponse = () => {
     const inputText = `${responseText} Adjusted: ${adjustedRecipe}`;
     setIsLoading(true);
 
-    fetch(`${API_URL}/generaterecipe`, {
+    fetch(`${GPT_URL}/generaterecipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,38 +64,6 @@ const GPTResponse = () => {
         setIsLoading(false);
         Alert.alert('Error', 'Failed to adjust recipe. Please try again later.');
       });
-  };
-
-  const saveRecipe = async () => {
-    try {
-      const recipe = {
-        title: recipeTitle,
-        text: responseText,
-        user: user_ID,
-      };
-
-      await fetch(`${API_URL}/saverecipe`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(recipe),
-      });
-
-      Alert.alert('Success', 'Recipe saved successfully!');
-      navigation.navigate('UserRecipes');
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Error', 'Failed to save recipe.');
-    }
-  };
-
-  const openModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
   };
 
   return (
@@ -169,7 +133,7 @@ const GPTResponse = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top:50,
+    top: 50,
   },
   backgroundImage: {
     flex: 1,
@@ -262,45 +226,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: 'Avenir',
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 20,
-    minWidth: 300,
-  },
-  titleInput: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  },
-  closeButton: {
-    backgroundColor: '#f2ae72',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  saveButtonModal: {
-    backgroundColor: '#f2ae72',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+
 });
 
 export default GPTResponse;
