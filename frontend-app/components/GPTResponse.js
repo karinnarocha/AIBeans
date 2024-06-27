@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, ImageBackground, Text, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Modal, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 import { GPT_URL } from '@env';
+=======
+import CameraButton from '../components/CameraButton';
+
+const API_URL = '***';
+>>>>>>> c542ceeb2bfc3c918394aabef3f28c6d08bc80c1
 
 const GPTResponse = () => {
   const route = useRoute();
